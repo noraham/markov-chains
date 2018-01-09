@@ -63,12 +63,23 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
     # add tuple to list as 2 strings
     # infinite loop, break if None
     # random sample a value and append
     # access key for [1,2], random sample a value and append
     # end if key is not in dict
+
+    keys = chains.keys()  # list of tuples
+    next = random.sample(keys)  # selects a tuple
+
+    words.append(next[0])  # append tuple to list as 2 strings
+    words.append(next[1])
+    next_value = random.sample(chains[next])  # picks a random sample from the value list in chains dict
+    words.append(next_value)
+
+    
+
+
 
     return " ".join(words)
 
