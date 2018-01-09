@@ -47,6 +47,7 @@ def make_chains(text_string):
     # make values =
 
     corpus = text_string.split()
+    corpus.append(None)
     for i in range(len(corpus) - 2):
         new_key_var = (corpus[i], corpus[i + 1])
         new_value_var = corpus[i + 2]
@@ -57,15 +58,17 @@ def make_chains(text_string):
     return chains
 
 
-
-# make_chains("green-eggs.txt")
-
 def make_text(chains):
     """Return text from chains."""
 
     words = []
 
     # your code goes here
+    # add tuple to list as 2 strings
+    # infinite loop, break if None
+    # random sample a value and append
+    # access key for [1,2], random sample a value and append
+    # end if key is not in dict
 
     return " ".join(words)
 
