@@ -1,0 +1,11 @@
+Enter a gram size: 2
+Traceback (most recent call last):
+  File "markov.py", line 136, in <module>
+    random_text = make_text(chains)
+  File "markov.py", line 108, in make_text
+    if chains[shift_tuple] == [None]:  # early exit condition if we reach end of text
+KeyError: ('am?', None)
+
+
+>>> we don't know why sometimes we don't catch the condition where app should exit
+tuple (sam, iam?)
