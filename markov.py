@@ -79,7 +79,11 @@ def make_text(chains):
 
     keys = chains.keys()  # list of tuples
     n = len(keys[0])
-    random_key = choice(keys)  # selects a tuple
+
+    while True:
+        random_key = choice(keys)  # selects a tuple
+        if random_key[0][0].isupper():
+            break
 
     for initial_append in range(n):
         words.append(random_key[initial_append])  # append tuple to list as strings
@@ -96,6 +100,7 @@ def make_text(chains):
 
         # shift_key = (words[counter], words[counter + 1])
         if chains[shift_tuple] == [None]:  # why [None] vs None
+        # if chains[shift_tuple][0] == None
             break
         another_next_value = choice(chains[shift_tuple])  # explore use of random.sample later
         words.append(another_next_value)
