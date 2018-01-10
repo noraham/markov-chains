@@ -99,7 +99,9 @@ def make_text(chains):
 
     counter = 1
     punctuation = [".", "!", "?"]
+    print chains
     while True:
+        
         shift_list = []
         for k in range(counter, counter + n):
             shift_list.append(words[k])
@@ -109,6 +111,7 @@ def make_text(chains):
             break
         if (character_count > 200
             and (shift_list[n - 1][-1] in punctuation or character_count > 260)):
+            print "In second check"
             break
 
         #if character_count > 200:
