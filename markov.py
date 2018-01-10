@@ -47,7 +47,7 @@ def make_chains(text_string):
     # make values =
 
     corpus = text_string.split()
-    #corpus.append(None)
+    corpus.append(None)
 
     size_of_gram = raw_input('Enter a gram size: ')  # think about wording
     size_of_gram = int(size_of_gram)
@@ -105,12 +105,16 @@ def make_text(chains):
             shift_list.append(words[k])
         shift_tuple = tuple(shift_list)
 
-        if character_count > 200:
-            if shift_list[n - 1][-1] in punctuation or character_count > 260:
-                break
+        if chains[shift_tuple] == [None]:  # early exit condition if we reach end of text
+            break
+        if (character_count > 200
+            and (shift_list[n - 1][-1] in punctuation or character_count > 260)):
+            break
 
-        #if chains[shift_tuple] == [None]:  # why [None] vs None
-        #    break
+        #if character_count > 200:
+        #    if shift_list[n - 1][-1] in punctuation or character_count > 260:
+        #        break
+
         another_next_value = choice(chains[shift_tuple])  # explore use of random.sample later
         words.append(another_next_value)
         character_count += len(another_next_value) + 1
