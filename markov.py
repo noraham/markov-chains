@@ -70,17 +70,21 @@ def make_text(chains):
     # end if key is not in dict
 
     keys = chains.keys()  # list of tuples
-    next = random.sample(keys)  # selects a tuple
+    random_key = choice(keys)  # selects a tuple
 
-    words.append(next[0])  # append tuple to list as 2 strings
-    words.append(next[1])
-    next_value = random.sample(chains[next])  # picks a random sample from the value list in chains dict
+    words.append(random_key[0])  # append tuple to list as 2 strings
+    words.append(random_key[1])
+    next_value = choice(chains[random_key])  # picks a random sample from the value list in chains dict
     words.append(next_value)
 
-    
-
-
-
+    counter = 1
+    while True:
+        shift_key = (words[counter], words[counter + 1])
+        if chains[shift_key] == [None]:
+            break
+        another_next_value = choice(chains[shift_key])  # explore use of random.sample later
+        words.append(another_next_value)
+        counter += 1
     return " ".join(words)
 
 
