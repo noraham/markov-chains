@@ -48,13 +48,21 @@ def make_chains(text_string):
 
     corpus = text_string.split()
     corpus.append(None)
-    for i in range(len(corpus) - 2):
-        new_key_var = (corpus[i], corpus[i + 1])
-        new_value_var = corpus[i + 2]
-        if new_key_var in chains:
-            chains[new_key_var].append(new_value_var)
+
+    size_of_gram = raw_input('Enter a gram size: ')  # think about wording
+    size_of_gram = int(size_of_gram)
+
+    for i in range(len(corpus) - size_of_gram):
+        mlist = []
+        for j in range(i, i + size_of_gram):
+            mlist.append(corpus[j])
+        mtuple = tuple(mlist)
+        
+        new_value_var = corpus[i + size_of_gram]
+        if mtuple in chains:
+            chains[mtuple].append(new_value_var)
         else:
-            chains[new_key_var] = [new_value_var]
+            chains[mtuple] = [new_value_var]
     return chains
 
 
@@ -70,19 +78,26 @@ def make_text(chains):
     # end if key is not in dict
 
     keys = chains.keys()  # list of tuples
+    n = len(keys[0])
     random_key = choice(keys)  # selects a tuple
 
-    words.append(random_key[0])  # append tuple to list as 2 strings
-    words.append(random_key[1])
+    for initial_append in range(n):
+        words.append(random_key[initial_append])  # append tuple to list as strings
+
     next_value = choice(chains[random_key])  # picks a random sample from the value list in chains dict
     words.append(next_value)
 
     counter = 1
     while True:
-        shift_key = (words[counter], words[counter + 1])
-        if chains[shift_key] == [None]:  # why [None] vs None
+        shift_list = []
+        for k in range(counter, counter + n):
+            shift_list.append(words[k])
+        shift_tuple = tuple(shift_list)
+
+        # shift_key = (words[counter], words[counter + 1])
+        if chains[shift_tuple] == [None]:  # why [None] vs None
             break
-        another_next_value = choice(chains[shift_key])  # explore use of random.sample later
+        another_next_value = choice(chains[shift_tuple])  # explore use of random.sample later
         words.append(another_next_value)
         counter += 1
     return " ".join(words)
