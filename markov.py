@@ -47,7 +47,7 @@ def make_chains(text_string):
     # make values =
 
     corpus = text_string.split()
-    corpus.append(None)
+    #corpus.append(None)
 
     size_of_gram = raw_input('Enter a gram size: ')  # think about wording
     size_of_gram = int(size_of_gram)
@@ -79,32 +79,44 @@ def make_text(chains):
 
     keys = chains.keys()  # list of tuples
     n = len(keys[0])
+    character_count = 0
 
     while True:
         random_key = choice(keys)  # selects a tuple
         if random_key[0][0].isupper():
+            
             break
 
     for initial_append in range(n):
+        # print random_key
         words.append(random_key[initial_append])  # append tuple to list as strings
+        # print 'increment count', len(random_key[initial_append])
+        character_count += len(random_key[initial_append]) + 1  # the additional 1 is for a space after the word, delete if twitter doesn't count spaces as chars
+       
 
     next_value = choice(chains[random_key])  # picks a random sample from the value list in chains dict
     words.append(next_value)
 
     counter = 1
+    punctuation = [".", "!", "?"]
     while True:
         shift_list = []
         for k in range(counter, counter + n):
             shift_list.append(words[k])
         shift_tuple = tuple(shift_list)
 
-        # shift_key = (words[counter], words[counter + 1])
-        if chains[shift_tuple] == [None]:  # why [None] vs None
-        # if chains[shift_tuple][0] == None
-            break
+        if character_count > 200:
+            if shift_list[n - 1][-1] in punctuation or character_count > 260:
+                break
+
+        #if chains[shift_tuple] == [None]:  # why [None] vs None
+        #    break
         another_next_value = choice(chains[shift_tuple])  # explore use of random.sample later
         words.append(another_next_value)
+        character_count += len(another_next_value) + 1
+
         counter += 1
+    print 'total char count', character_count
     return " ".join(words)
 
 
