@@ -9,3 +9,8 @@ KeyError: ('am?', None)
 
 >>> we don't know why sometimes we don't catch the condition where app should exit
 tuple (sam, iam?)
+
+>>> issue was sometimes the first tuple is (sam, iam?)
+then moves to (iam?, none)
+so we need fix by moving the check for punctuation at end of tuple towards top of app
+also suggested to refactor redundant code
